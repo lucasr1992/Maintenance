@@ -5,7 +5,6 @@ const Cargos = require('../models/Cargos');
 const Setores = require('../models/Setores');
 const Usuarios = require('../models/Usuarios');
 
-
 const connection = new Sequelize(dbConfig);
 
 //conexão dos models

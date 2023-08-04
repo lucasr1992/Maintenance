@@ -1,4 +1,5 @@
 const Cargos = require('../models/Cargos');
+const Token = require('../auth/Authenticator');
 
 module.exports={
   async buscarTodos(req, res){
@@ -14,7 +15,7 @@ module.exports={
 
   async buscarUmCargo(req, res){
     const { id_cargo } = req.params;
-    const cargo = await Cargos.findAll({ where: { id: id_cargo}})
+    const cargo = await Cargos.findOne({ where: { id: id_cargo}})
     return res.json(cargo);
   }
 }
