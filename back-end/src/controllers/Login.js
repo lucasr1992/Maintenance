@@ -15,7 +15,7 @@ module.exports = {
         registro_usuario: registro_usuario, 
         senha_usuario: senha_usuario
       }});
-      const token = jwt.sign({userId: registro_usuario}, SECRET, { expiresIn: 40});
+      const token = jwt.sign({userId: registro_usuario}, SECRET, { expiresIn: 180});
       return res.status(200).json({auth: true, token});
     }catch(error){
       return res.status(400).json({ error: "Registro ou Senha Incorretos"});
