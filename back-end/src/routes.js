@@ -17,7 +17,7 @@ routes.get('/setores/:id_setor', Token, Setores.buscarUmSetor);
 routes.post('/setores', Token, Setores.criarSetor);
 
 routes.get('/usuarios', Token, Usuarios.buscarTodos);
-routes.get('/usuarios/:registro_usuario', Usuarios.buscarUmUsuario);
+routes.get('/usuarios/:registro_usuario', Token, Usuarios.buscarUmUsuario);
 routes.post('/usuarios', Token, Usuarios.criarUsuario);
 
 routes.post('/auth', Login.login);
