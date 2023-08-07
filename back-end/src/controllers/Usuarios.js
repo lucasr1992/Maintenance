@@ -1,6 +1,9 @@
+require('dotenv').config({path:'settings.env'});
 const Cargo = require('../models/Cargos');
 const Setor = require('../models/Setores');
 const Usuario = require('../models/Usuarios');
+const jwt = require('jsonwebtoken');
+const SECRET = process.env.SECRET
 
 module.exports = {
   async criarUsuario(req, res){
@@ -26,43 +29,47 @@ module.exports = {
     }catch(err){
       return res.status(400).json({ error: 'Cargo não Encontrado' });
     }  
-   
-    const usuario = await Usuario.create({
-      registro_usuario,
-      nome_usuario,
-      senha_usuario,
-      email_usuario,
-      celular_usuario,
-      setor_usuario,
-      cargo_usuario,
-      status,
-    });
-
-    return res.status(200).json(usuario);
+    
+    try{
+      const usuario = await Usuario.create({
+        registro_usuario,
+        nome_usuario,
+        senha_usuario,
+        email_usuario,
+        celular_usuario,
+        setor_usuario,
+        cargo_usuario,
+        status,
+      });
+  
+      return res.status(200).json(usuario);
+    }catch(error){
+      return res.status(500).json({ error: "Erro no Cadastro"});
+    }
   },
 
   async buscarTodos(req, res){
-    const usuarios = await Usuario.findAll({
-      include:{
-        association: 'setores',
-        association: 'cargos'
-      }
-    });
-    return res.status(200).json(usuarios);
+    try{
+      const usuarios = await Usuario.findAll();
+      return res.status(200).json(usuarios);
+    }catch(error){
+      return res.status(500).json({ error: "Erro de Conexão"});
+    }   
   },
 
 
   async buscarUmUsuario(req, res){
     const { registro_usuario } = req.params;
-    
-    const usuario = await Usuario.findByPk(registro_usuario, {
-      include:{
-        association: 'setores',
-        association: 'cargos'
-      }
-    });
-    return res.status(200).json(usuario);
-  }
+    if(!registro_usuario){
+      return res.status(422).json({ error: "Necessario Registro do Usuario para Pesquisa"});
+    }
 
+    try{
+      const usuario = await Usuario.findOne({ where: { registro_usuario: registro_usuario}});
+      return res.status(200).json(usuario);
+    }catch(error){
+      return res.status(400).json({ error: "Usuario não Encontrado"});
+    } 
+  }
   
 }
