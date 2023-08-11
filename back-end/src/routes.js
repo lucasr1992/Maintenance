@@ -21,5 +21,6 @@ routes.get('/usuarios/:registro_usuario', Token, Usuarios.buscarUmUsuario);
 routes.post('/usuarios', Token, Usuarios.criarUsuario);
 
 routes.post('/auth', Login.login);
+routes.post('/validation', Login.validationUser);
 
 module.exports= routes;

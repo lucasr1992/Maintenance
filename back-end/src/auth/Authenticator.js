@@ -4,7 +4,9 @@ const SECRET = process.env.SECRET;
 const jwt = require('jsonwebtoken');
 
 function verifyToken(req, res, next){
-  const token = req.headers['x-access-token'];
+  const token = req.headers['bearer'];
+  console.log(token)
+ 
   jwt.verify(token, SECRET, (err, decoded) => {
     if(err){
       switch (LANG){
