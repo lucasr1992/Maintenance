@@ -1,5 +1,6 @@
 const { Model, DataTypes } = require('sequelize');
 
+
 class Usuarios extends Model{
   static init(sequelize){
     super.init({
@@ -16,8 +17,8 @@ class Usuarios extends Model{
     });
   }
   static associate(models) {
-    this.belongsTo(models.Setores, { foreignKey: 'id', as: 'Setores' });
-    this.belongsTo(models.Cargos, { foreignKey: 'id', as: 'Cargos' });
+    this.belongsTo(models.Setores, { foreignKey: 'setor_usuario', as: 'setor' });
+    this.belongsTo(models.Cargos, { foreignKey: 'cargo_usuario', as: 'cargo' });
   }
 }
 

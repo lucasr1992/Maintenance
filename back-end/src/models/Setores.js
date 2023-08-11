@@ -11,7 +11,7 @@ class Setores extends Model{
   }
 
   static associate(models) {
-    this.hasMany(models.Usuarios, { foreignKey: 'id', as: 'registro_usuario' });
+    this.hasMany(models.Usuarios, { foreignKey: 'setor_usuario', as: 'setores' });
   }
 }
 

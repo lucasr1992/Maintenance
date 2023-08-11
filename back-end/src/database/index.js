@@ -13,8 +13,9 @@ Setores.init(connection);
 Usuarios.init(connection);
 
 //associações
-Usuarios.associate(connection.models)
-Cargos.associate(connection.models)
-Setores.associate(connection.models)
+Usuarios.associate(connection.models);
+Cargos.associate(connection.models);
+Setores.associate(connection.models);
+
 
 module.exports = connection;
