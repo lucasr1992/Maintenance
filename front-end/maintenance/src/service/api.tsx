@@ -5,9 +5,7 @@ const { 'maintenance.token': token } = parseCookies();
 
 const api = axios.create({
     baseURL: "http://localhost:3001"
-
 });
-
 
 if(token){
     api.defaults.headers.Bearer = `${token}`;

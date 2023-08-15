@@ -36,7 +36,7 @@ module.exports = {
             return res.status(401).json({ error: "Registrazione o Password Errate"}).end();
         }
       } 
-      const token = jwt.sign({userId: registro_usuario}, SECRET, { expiresIn: 120}); //3600
+      const token = jwt.sign({userId: registro_usuario}, SECRET, { expiresIn: 60 * 30}); //3600
       const dados = JSON.parse(`{"setor":${auth.setor.id}, "cargo":${auth.cargo.id}, "token":"${token}"}`)
       return res.status(200).json(dados);
     }catch(error){
