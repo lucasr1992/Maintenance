@@ -15,10 +15,12 @@ interface SignInData{
   senha_usuario: string
 }
 
+
 interface AuthContextProps{
   isAuthenticated: boolean;
   user: User | null;
-  sigIn: (data: SignInData ) => Promise<void>
+  sigIn: (data: SignInData ) => Promise<void>;
+  validarToken: () => void
 }
 
 interface AuthProps{
@@ -32,42 +34,31 @@ export function AuthProvider({ children } : AuthProps ){
   const [user, setUser] = useState<User | null>(null)
   const isAuthenticated = !!user;
 
-  useEffect(() => {
+  async function validarToken(){
     const { 'maintenance.token': token } = parseCookies();
-    if(token){
-      validation(token)
+    const validToken = JSON.parse(`{"token":"${token}"}`) 
+    if(!token){     
+      router.push('/')
     }else{
-      router.push('/')
+      try{
+        const usuario = await api.post('/validation', validToken ).then((res) => {
+          setUser(res.data)
+        })
+      }catch(error){
+        router.push('/')
+      }
     }
-    
-  }, [])
-
-  async function validation(toke: string) {
-    const toki = JSON.parse(`{"token":"${toke}"}`)
-    try{
-      const usuario = await api.post('/validation', toki).then((res) => {
-        setUser(res.data)
-      })  
-    }catch(error){
-      destroyCookie(null, 'maintenance.token')
-      router.push('/')
-    }
-    
   }
 
   async function sigIn(data: SignInData){
     try{
       const usuario = await api.post('/auth', data)
       setCookie(undefined, 'maintenance.token', usuario.data.token, {
-        maxAge: 60 * 60 * 1
+        maxAge: 60 * 30 
       }) 
-
-      
-
       api.defaults.headers.Bearer = `${usuario.data.token}`;
       setUser(usuario.data)
-      router.push('/teste')
-
+      router.push('/in/teste')
     }catch(error: any){
       const msg = error.response.data.error
       return msg
@@ -75,7 +66,7 @@ export function AuthProvider({ children } : AuthProps ){
   }
 
   return(
-    <AuthContext.Provider value={{ user, isAuthenticated, sigIn }}>
+    <AuthContext.Provider value={{ user, isAuthenticated, sigIn, validarToken }}>
       {children}
     </AuthContext.Provider>
   )
