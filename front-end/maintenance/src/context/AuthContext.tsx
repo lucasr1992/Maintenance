@@ -1,4 +1,6 @@
 import {  createContext, useState, ReactNode, useEffect } from "react";
+import { toast, ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 import { setCookie, parseCookies, destroyCookie } from 'nookies'
 import { useRouter } from 'next/navigation'
 
@@ -15,11 +17,10 @@ interface SignInData{
   senha_usuario: string
 }
 
-
 interface AuthContextProps{
   isAuthenticated: boolean;
   user: User | null;
-  sigIn: (data: SignInData ) => Promise<void>;
+  sigIn: (data: SignInData ) => Promise<any>;
   validarToken: () => void
 }
 
@@ -36,6 +37,7 @@ export function AuthProvider({ children } : AuthProps ){
 
   async function validarToken(){
     const { 'maintenance.token': token } = parseCookies();
+    api.defaults.headers.Bearer = `${token}`;
     const validToken = JSON.parse(`{"token":"${token}"}`) 
     if(!token){     
       router.push('/')
@@ -51,6 +53,7 @@ export function AuthProvider({ children } : AuthProps ){
   }
 
   async function sigIn(data: SignInData){
+    const id = toast.loading("Validando Dados")
     try{
       const usuario = await api.post('/auth', data)
       setCookie(undefined, 'maintenance.token', usuario.data.token, {
@@ -60,8 +63,8 @@ export function AuthProvider({ children } : AuthProps ){
       setUser(usuario.data)
       router.push('/in/teste')
     }catch(error: any){
-      const msg = error.response.data.error
-      return msg
+      const msg = error.response
+      return toast.update(id, {render: msg, type: "error", isLoading: false });
     }
   }
 
