@@ -18,5 +18,14 @@ export const SidebarData = [
     icon: <AiFillCheckCircle/>,
     notificatio: 10,
     visible: true
+  },
+
+  {
+    id: 2,
+    title: 'Teste2',
+    path: '/in/dash',
+    icon: <AiFillCheckCircle/>,
+    notificatio: 10,
+    visible: true
   }
 ];
