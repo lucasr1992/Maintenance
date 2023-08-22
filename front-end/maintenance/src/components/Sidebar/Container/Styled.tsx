@@ -58,6 +58,7 @@ export const Divider = styled.div<StyleProps>`
   background-color: #dddddd;
 `
 
+
 export const Content = styled.div<StyleProps>`
   background-color: ${StyleProps => StyleProps.isActive ? '#dddddd' : 'transparent'};
   border: 1px solid transparent;
@@ -94,3 +95,38 @@ export const Icon = styled.div<StyleProps>`
 export const Label = styled.div<StyleProps>`
   display: ${StyleProps => StyleProps.isOpen ?  {} : 'none'};  
 `
+
+export const DividerUnder = styled.div<StyleProps>`
+  margin-top: ${StyleProps => StyleProps.isOpen ? '40px' : '40px'};
+  height: 1px;
+  background-color: #dddddd;
+  margin-bottom: 40px;
+  
+`
+
+export const IconUnder = styled.div<StyleProps>`
+  display: flex;
+  padding: 4px;
+  justify-content: ${StyleProps => StyleProps.isOpen ? 'left' : 'center'} ;
+  align-items: center;
+  color: ${StyleProps => StyleProps.isActive ? 'black' : 'gray'};
+  svg{
+    margin-left: 7px;
+    margin-right: 10px;
+    font-size: 2rem;
+  }
+  cursor: pointer;
+  border: 1px solid transparent;
+  &:hover{
+    border: 1px solid #dddddd ;
+    border-radius: 6px;
+  }
+
+`
+
+
+export const LabelUnder = styled.div<StyleProps>`
+  display: ${StyleProps => StyleProps.isOpen ?  {} : 'none'};  
+  
+`
+

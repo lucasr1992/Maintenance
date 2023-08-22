@@ -79,7 +79,7 @@ export function AuthProvider({ children } : AuthProps ){
       const busca = JSON.parse(`{"id_cargo":"${usuario.data.cargo}", "id_setor":"${usuario.data.setor}"}`)
       Permissao(busca)
       setUser(usuario.data)
-      router.push('/in/teste')
+      router.push('/in/home')
     }catch(error: any){
       const msg = error.response.data.error
       toast.update(id, {render: msg, type: "error", isLoading: false, autoClose:30*100});

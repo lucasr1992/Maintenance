@@ -1,9 +1,11 @@
 import { ReactNode, useState, useContext, useEffect } from "react"
 import { useRouter } from 'next/navigation'
-import { AiFillCodeSandboxCircle, AiOutlineLeft } from "react-icons/ai"
+import { AiFillCodeSandboxCircle, AiOutlineLeft, AiOutlineLogout } from "react-icons/ai"
+import { destroyCookie } from 'nookies'
 import { SidebarData } from '@/components/Sidebar/ItenList/List';
-import { Container, Button, Logo, Divider, Content, Link, Icon, Label} from './Styled'
+import { Container, Button, Logo, Divider, Content, Link, Icon, Label, DividerUnder, LabelUnder, IconUnder} from './Styled'
 import { AuthContext } from '@/context/AuthContext' 
+
 
 
 interface CloseProps{
@@ -44,12 +46,21 @@ export default function ContantSidebar(){
   function controleAcesso(){
     for(var i = 0; i < permissao.length; i++){
       if(permissao[i].leitura === true){
-        let id_pag = listaData.find((item) => item.title === permissao[i].paginas.title)?.id;
-        listaData[id_pag || 0].visible=true;
-            
+        for(var j = 0; j< listaData.length; j++){
+          if(listaData[j].id === permissao[i].paginas.id_pagina){
+            listaData[j].visible=true
+          }
+        }  
+        // let id_pag = listaData.find((item) => item.title === permissao[i].paginas.title)?.id;
+        // listaData[id_pag || 0].visible=true;         
       }
       setListData(listaData);       
     }    
+  }
+
+  function Logout(){
+    destroyCookie(undefined, 'maintenance.token')
+    route.push('/')
   }
 
   return(
@@ -67,10 +78,19 @@ export default function ContantSidebar(){
                   <Label isOpen={isOpen}>{item.title}</Label>
                 </Icon>                
               </Link>
+              
+
             </Content> }
+            
           </>
         ) 
       })}
+      <DividerUnder isOpen={isOpen}/>
+      <IconUnder onClick={Logout} isOpen={isOpen} >
+        <AiOutlineLogout/>
+        <LabelUnder isOpen={isOpen}>Logout</LabelUnder>
+      </IconUnder>  
+      <DividerUnder isOpen={isOpen}/>
     </Container>
   )
 }

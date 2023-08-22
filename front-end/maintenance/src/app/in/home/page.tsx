@@ -1,38 +1,31 @@
 'use client'
 import { useContext, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import { AuthContext } from '@/context/AuthContext'
-import { useRouter } from 'next/navigation'
+import api from '@/service/api'
+import { parseCookies } from 'nookies';
 
-export default function Dash() {
-  const { user } = useContext(AuthContext)
+export default function Teste() {
   const { permissao } = useContext(AuthContext)
+  const { user } = useContext(AuthContext)
   const router = useRouter();
   const { validarToken } = useContext(AuthContext)
   useEffect(() => {
     validarToken();
   }, [])  
 
-  function Usuario(){
-    console.log(user)
-  }
-
-  const paginaTeste = () =>{
-    router.push('/in/teste')
-    const id = toast.loading("Aguarde")
-  }
-  
-  const permissaoShow = () =>{
+  function Permissoes(){
     console.log(permissao)
   }
+  
+
   return (
     <div>
       <ToastContainer />
-      <h1>Dash</h1>
-      <button onClick={paginaTeste}>Teste</button>
-      <button onClick={Usuario}>Usuario</button>
-      <button onClick={permissaoShow}>Permisao</button>
+      <h1>Home</h1>
+      <button onClick={Permissoes}>Pagina</button>
     </div>
   )
 }
