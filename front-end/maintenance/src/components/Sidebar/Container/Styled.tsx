@@ -8,7 +8,7 @@ interface StyleProps{
 
 export const Container = styled.div<StyleProps>`
   background-color: black;
-  width: ${StyleProps => StyleProps.isOpen ? '320px' : '90px'};
+  width: ${StyleProps => StyleProps.isOpen ?  '320px' : 'auto' };
   min-height: 100vh;
   position: relative; 
   padding: 10px;
@@ -18,18 +18,18 @@ export const Container = styled.div<StyleProps>`
 `
 
 export const Button = styled.div<StyleProps>`
-  top: 10px;
-  left: ${StyleProps => StyleProps.isOpen ? '245px' : '85px'};
+  box-shadow: -2px 2px 5px white, 3px -2px 5px black ;
+  position: absolute;
+  top: 48px;
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  box-shadow: -2px 2px 5px white, 3px -2px 5px black ;
-  background-color: #dddddd;
-  position: absolute;
-  cursor: pointer;
+  background: #dddddd;
+  right: -20px;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;  
+  cursor: pointer;
   svg{
     transform: ${StyleProps => StyleProps.isOpen ? 'initial' :'rotate(180deg)'};
   }

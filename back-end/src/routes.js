@@ -4,6 +4,7 @@ const Cargos = require('./controllers/Cargo');
 const Setores = require('./controllers/Setores');
 const Usuarios = require('./controllers/Usuarios');
 const Login = require('./controllers/Login');
+const Permissoes = require('./controllers/Permissoes');
 const Token = require('./auth/Authenticator');
 
 const routes = express.Router();
@@ -22,5 +23,6 @@ routes.post('/usuarios', Token, Usuarios.criarUsuario);
 
 routes.post('/auth', Login.login);
 routes.post('/validation', Login.validationUser);
+routes.post('/permissoes', Permissoes.buscarPermissao);
 
 module.exports= routes;

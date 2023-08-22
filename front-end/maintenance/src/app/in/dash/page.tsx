@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation'
 
 export default function Dash() {
   const { user } = useContext(AuthContext)
+  const { permissao } = useContext(AuthContext)
   const router = useRouter();
   const { validarToken } = useContext(AuthContext)
   useEffect(() => {
@@ -22,12 +23,16 @@ export default function Dash() {
     const id = toast.loading("Aguarde")
   }
   
+  const permissaoShow = () =>{
+    console.log(permissao)
+  }
   return (
     <div>
       <ToastContainer />
       <h1>Dash</h1>
       <button onClick={paginaTeste}>Teste</button>
       <button onClick={Usuario}>Usuario</button>
+      <button onClick={permissaoShow}>Permisao</button>
     </div>
   )
 }

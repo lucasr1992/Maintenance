@@ -13,7 +13,7 @@ export default function Home() {
     const senha = document.getElementById('senha') as HTMLInputElement;
     const sen = senha.value
     const usuario = JSON.parse(`{"registro_usuario":"${reg}", "senha_usuario":"${sen}"}`)
-    const resolveAfter3Sec = new Promise(resolve => setTimeout(resolve, 3000));
+    
     await sigIn(usuario)
   }
 

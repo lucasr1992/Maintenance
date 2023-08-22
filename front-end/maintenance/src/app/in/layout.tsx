@@ -1,7 +1,7 @@
 'use client'
 import { ReactNode } from 'react';
 
-import Sidebar from '@/components/Sidebar2/Layout/Sidebar';
+import Sidebar from '@/components/Sidebar/Layout/Sidebar';
 
 interface AuthLayouteProps{
   children: ReactNode
