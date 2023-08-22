@@ -1,5 +1,7 @@
 'use client'
-import { ReactNode } from 'react'
+import { ReactNode } from 'react';
+
+import Sidebar from '@/components/Sidebar/Layout/Sidebar';
 
 interface AuthLayouteProps{
   children: ReactNode
@@ -7,8 +9,8 @@ interface AuthLayouteProps{
 
 export default function AuthLayout({ children }: AuthLayouteProps){
   return(
-    <div>
-      {children}
-    </div>
+    <Sidebar>
+        {children}
+    </Sidebar>
   )
 }

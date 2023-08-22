@@ -1,6 +1,8 @@
 'use client'
-import { AuthContext } from "@/context/AuthContext";
+import { toast, ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 import { useContext } from "react";
+import { AuthContext } from "@/context/AuthContext";
 
 export default function Home() {
   const { sigIn } = useContext(AuthContext)
@@ -13,11 +15,12 @@ export default function Home() {
     const usuario = JSON.parse(`{"registro_usuario":"${reg}", "senha_usuario":"${sen}"}`)
     
     await sigIn(usuario)
-
   }
 
   return (
     <div>
+      <ToastContainer autoClose={30 * 100} closeButton={true} theme='colored' />
+      
       <label>Registro: </label>
       <input name='registro' id='registro'/>
       <br/>
